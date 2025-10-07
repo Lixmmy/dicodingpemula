@@ -120,118 +120,131 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: 250,
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(destinations[index].imageUrl),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
+                    return InkWell(
+                      onTap: () {
+                        // Handle card tap if needed
+                        SnackBar snackBar = SnackBar(
+                          content: Text(
+                            'You tapped on ${destinations[index].name}',
                           ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      destinations[index].name,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: Container(
+                        width: 250,
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(destinations[index].imageUrl),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Stack(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        destinations[index].name,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        destinations[index].location,
+                                        style: const TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              bottom: 16,
+                              right: 16,
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.favorite_outline_outlined,
+                                  ),
+                                  color: _isLovedList[index]
+                                      ? Colors.red
+                                      : Colors.white,
+                                  onPressed: () {
+                                    setState(() {
+                                      _isLovedList[index] =
+                                          !_isLovedList[index];
+                                    });
+                                    final snackBar = SnackBar(
+                                      content: Text(
+                                        _isLovedList[index]
+                                            ? 'Added to favorites'
+                                            : 'Removed from favorites',
+                                      ),
+                                      duration: const Duration(seconds: 1),
+                                    );
+                                    ScaffoldMessenger.of(
+                                      context,
+                                    ).showSnackBar(snackBar);
+                                  },
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 16,
+                              right: 16,
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  color: Colors.white70,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                      size: 16,
                                     ),
-                                    const SizedBox(height: 4),
+                                    const SizedBox(width: 4),
                                     Text(
-                                      destinations[index].location,
+                                      destinations[index].rating,
                                       style: const TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 14,
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                          Positioned(
-                            bottom: 16,
-                            right: 16,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.favorite_outline_outlined,
-                                ),
-                                color: _isLovedList[index]
-                                    ? Colors.red
-                                    : Colors.white,
-                                onPressed: () {
-                                  setState(() {
-                                    _isLovedList[index] = !_isLovedList[index];
-                                  });
-                                  final snackBar = SnackBar(
-                                    content: Text(
-                                      _isLovedList[index]
-                                          ? 'Added to favorites'
-                                          : 'Removed from favorites',
-                                    ),
-                                    duration: const Duration(seconds: 1),
-                                  );
-                                  ScaffoldMessenger.of(
-                                    context,
-                                  ).showSnackBar(snackBar);
-                                },
-                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: 16,
-                            right: 16,
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                color: Colors.white70,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 16,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    destinations[index].rating,
-                                    style: const TextStyle(
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -250,58 +263,72 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
             ),
             SliverList.builder(
               itemBuilder: (context, index) {
-                return Container(
-                  height: 100,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
+                return InkWell(
+                  onTap: () {
+                    // Handle card tap if needed
+                    SnackBar snackBar = SnackBar(
+                      content: Text(
+                        'You tapped on ${destinations[index].name}',
                       ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  child: Container(
+                    height: 100,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
                         ),
-                        child: Image.asset(
-                          destinations[index].imageUrl,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          ),
+                          child: Image.asset(
+                            destinations[index].imageUrl,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            destinations[index].name,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                        const SizedBox(width: 16),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              destinations[index].name,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            destinations[index].location,
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ],
+                            Text(
+                              destinations[index].location,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -410,118 +437,131 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: 250,
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(destinations[index].imageUrl),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
+                    return InkWell(
+                      onTap: () {
+                        // Handle card tap if needed
+                        SnackBar snackBar = SnackBar(
+                          content: Text(
+                            'You tapped on ${destinations[index].name}',
                           ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      destinations[index].name,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: Container(
+                        width: 250,
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(destinations[index].imageUrl),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Stack(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        destinations[index].name,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        destinations[index].location,
+                                        style: const TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              bottom: 16,
+                              right: 16,
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.favorite_outline_outlined,
+                                  ),
+                                  color: _isLovedList[index]
+                                      ? Colors.red
+                                      : Colors.white,
+                                  onPressed: () {
+                                    setState(() {
+                                      _isLovedList[index] =
+                                          !_isLovedList[index];
+                                    });
+                                    final snackBar = SnackBar(
+                                      content: Text(
+                                        _isLovedList[index]
+                                            ? 'Added to favorites'
+                                            : 'Removed from favorites',
+                                      ),
+                                      duration: const Duration(seconds: 1),
+                                    );
+                                    ScaffoldMessenger.of(
+                                      context,
+                                    ).showSnackBar(snackBar);
+                                  },
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 16,
+                              right: 16,
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  color: Colors.white70,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                      size: 16,
                                     ),
-                                    const SizedBox(height: 4),
+                                    const SizedBox(width: 4),
                                     Text(
-                                      destinations[index].location,
+                                      destinations[index].rating,
                                       style: const TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 14,
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                          Positioned(
-                            bottom: 16,
-                            right: 16,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.favorite_outline_outlined,
-                                ),
-                                color: _isLovedList[index]
-                                    ? Colors.red
-                                    : Colors.white,
-                                onPressed: () {
-                                  setState(() {
-                                    _isLovedList[index] = !_isLovedList[index];
-                                  });
-                                  final snackBar = SnackBar(
-                                    content: Text(
-                                      _isLovedList[index]
-                                          ? 'Added to favorites'
-                                          : 'Removed from favorites',
-                                    ),
-                                    duration: const Duration(seconds: 1),
-                                  );
-                                  ScaffoldMessenger.of(
-                                    context,
-                                  ).showSnackBar(snackBar);
-                                },
-                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: 16,
-                            right: 16,
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                color: Colors.white70,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 16,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    destinations[index].rating,
-                                    style: const TextStyle(
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -540,52 +580,65 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
             ),
             SliverGrid.builder(
               itemBuilder: (context, index) {
-                return Container(
-                  height: MediaQuery.of(context).size.height > 600 ? 300 : 100,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    image: destinations[index].imageUrl.isNotEmpty
-                        ? DecorationImage(
-                            image: AssetImage(destinations[index].imageUrl),
-                            fit: BoxFit.cover,
-                            colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.3),
-                              BlendMode.darken,
-                            ),
-                          )
-                        : null,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
+                return InkWell(
+                  onTap: () {
+                    // Handle card tap if needed
+                    SnackBar snackBar = SnackBar(
+                      content: Text(
+                        'You tapped on ${destinations[index].name}',
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        destinations[index].name,
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height > 600
+                        ? 300
+                        : 100,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      image: destinations[index].imageUrl.isNotEmpty
+                          ? DecorationImage(
+                              image: AssetImage(destinations[index].imageUrl),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.3),
+                                BlendMode.darken,
+                              ),
+                            )
+                          : null,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
                         ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        destinations[index].location,
-                        style: TextStyle(fontSize: 20, color: Colors.white60),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          destinations[index].name,
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          destinations[index].location,
+                          style: TextStyle(fontSize: 20, color: Colors.white60),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
