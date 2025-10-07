@@ -37,6 +37,13 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
   bool _isPasswordVisible = true;
 
   @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -190,6 +197,13 @@ class _DesktopScreenState extends State<DesktopScreen> {
   bool _isPasswordVisible = true;
 
   @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -266,8 +280,8 @@ class _DesktopScreenState extends State<DesktopScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize:
                                       MediaQuery.of(context).size.height > 600
-                                          ? 24
-                                          : 18,
+                                      ? 24
+                                      : 18,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
@@ -277,9 +291,9 @@ class _DesktopScreenState extends State<DesktopScreen> {
                                     style: GoogleFonts.poppins(
                                       fontSize:
                                           MediaQuery.of(context).size.height >
-                                                  600
-                                              ? 24
-                                              : 18,
+                                              600
+                                          ? 24
+                                          : 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.lightGreen,
                                     ),
@@ -289,8 +303,9 @@ class _DesktopScreenState extends State<DesktopScreen> {
                             ),
                             const SizedBox(height: 20),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
                               child: TextFormField(
                                 controller: _usernameController,
                                 decoration: InputDecoration(
@@ -310,8 +325,9 @@ class _DesktopScreenState extends State<DesktopScreen> {
                             ),
                             const SizedBox(height: 20),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
                               child: TextFormField(
                                 controller: _passwordController,
                                 obscureText: _isPasswordVisible,
@@ -346,9 +362,7 @@ class _DesktopScreenState extends State<DesktopScreen> {
                             ),
                             MediaQuery.of(context).size.height > 600
                                 ? SizedBox(height: 30)
-                                : SizedBox(
-                                    height: 15,
-                                  ),
+                                : SizedBox(height: 15),
                             ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
@@ -362,11 +376,12 @@ class _DesktopScreenState extends State<DesktopScreen> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.lightGreen,
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: MediaQuery.of(context).size.height >
-                                          600
+                                  horizontal:
+                                      MediaQuery.of(context).size.height > 600
                                       ? 30
                                       : 50,
-                                  vertical: MediaQuery.of(context).size.height > 600
+                                  vertical:
+                                      MediaQuery.of(context).size.height > 600
                                       ? 8
                                       : 15,
                                 ),

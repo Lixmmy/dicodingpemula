@@ -1,3 +1,5 @@
+import 'package:dicodingpemula/destination.dart';
+import 'package:dicodingpemula/detail_destination.dart';
 import 'package:dicodingpemula/home_page.dart';
 import 'package:dicodingpemula/login_page.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,10 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
+        DetailDestination.routeName: (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Destination;
+          return DetailDestination(destination: args);
+        },
       },
       
     );

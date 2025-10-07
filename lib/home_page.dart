@@ -1,4 +1,5 @@
 import 'package:dicodingpemula/destination.dart';
+import 'package:dicodingpemula/detail_destination.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -122,13 +123,11 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        // Handle card tap if needed
-                        SnackBar snackBar = SnackBar(
-                          content: Text(
-                            'You tapped on ${destinations[index].name}',
-                          ),
+                        Navigator.pushNamed(
+                          context,
+                          DetailDestination.routeName,
+                          arguments: destinations[index],
                         );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Container(
                         width: 250,
@@ -266,12 +265,11 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                 return InkWell(
                   onTap: () {
                     // Handle card tap if needed
-                    SnackBar snackBar = SnackBar(
-                      content: Text(
-                        'You tapped on ${destinations[index].name}',
-                      ),
+                    Navigator.pushNamed(
+                      context,
+                      DetailDestination.routeName,
+                      arguments: destinations[index],
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: Container(
                     height: 100,
@@ -439,13 +437,11 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        // Handle card tap if needed
-                        SnackBar snackBar = SnackBar(
-                          content: Text(
-                            'You tapped on ${destinations[index].name}',
-                          ),
+                        Navigator.pushNamed(
+                          context,
+                          DetailDestination.routeName,
+                          arguments: destinations[index],
                         );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Container(
                         width: 250,
@@ -583,12 +579,11 @@ class _DesktopHomeScreenState extends State<DesktopHomeScreen> {
                 return InkWell(
                   onTap: () {
                     // Handle card tap if needed
-                    SnackBar snackBar = SnackBar(
-                      content: Text(
-                        'You tapped on ${destinations[index].name}',
-                      ),
+                    Navigator.pushNamed(
+                      context,
+                      DetailDestination.routeName,
+                      arguments: destinations[index],
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height > 600
